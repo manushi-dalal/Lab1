@@ -1,12 +1,12 @@
- ---
-title: "BSMM-lab-1"
-subtitle: "BSMM 8740 Fall 2023"
-author: "Manushi Dalal"
-date: "September 18, 2023"
-format: html
-editor: visual
-self-contained: true
----
+|                                |
+|--------------------------------|
+| itle: "BSMM-lab-1"             |
+| ubtitle: "BSMM 8740 Fall 2023" |
+| uthor: "Manushi Dalal"         |
+| ate: "September 18, 2023"      |
+| ormat: html                    |
+| ditor: visual                  |
+| elf-contained: true            |
 
 ## Setup
 
@@ -25,15 +25,27 @@ library(Lahman)
 dplyr::glimpse(Teams)
 ```
 
-The `Teams` dataset has \_\_\_ observations and \_\_\_ variables.
+The `Teams` dataset has 3015 observations and 48 variables.
 
 ### Exercise 2
 
-...
+```{r}
+mets <- Teams  |>
+  dplyr::filter(teamID == "NYN")
+my_mets <- mets |> 
+  dplyr::filter(yearID %in% 2004:2012) |>
+  dplyr::select(yearID,G,W,L)
+my_mets
+```
 
 ### Exercise 3
 
-...
+```{r}
+mets_ben <- Teams |>
+  dplyr::select(yearID, teamID, G, RA, RS = R) |>
+  dplyr::filter(teamID == "NYN" & yearID %in% 2004:2012)
+mets_ben
+```
 
 ### Exercise 4
 
