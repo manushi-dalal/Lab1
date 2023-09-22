@@ -42,7 +42,7 @@ my_mets
 
 ```{r}
 mets_ben <- Teams |>
-  dplyr::select(yearID, teamID, G, RA, RS = R) |>
+  dplyr::select(yearID, teamID, G, RA, RS = R, W, L) |>
   dplyr::filter(teamID == "NYN" & yearID %in% 2004:2012)
 mets_ben
 ```
@@ -51,36 +51,84 @@ mets_ben
 
 ```{r}
 mets_ben <- mets_ben |>
-  dplyr::mutate(WPct = 1/(1+(RA/RS)^2))
+  dplyr::mutate(WPct = W / (W + L))
 mets_ben
 
 mets_ben <- mets_ben |>
-  dplyr::mutate(W_hat = WPct*G)
+  dplyr::mutate(WPct_hat = 1 / (1 + (RA/RS)^2))
 mets_ben
 ```
 
 ### Exercise 5
 
 ```{r}
-
+filter(mets_ben, W >= W_hat)
 ```
+```{r}
+filter(mets_ben, W < W_hat)
+```
+
+
 
 ### Exercise 6
 
-...
+```{r}
+arrange(mets_ben, desc(WPct))
+```
+2006 season was the best for the mets.
 
 ### Exercise 7
 
-...
+```{r}
+mets_ben |> 
+  mutate(Diff = W - W_hat) |> 
+  arrange(desc(Diff))
+```
+
 
 ### Exercise 8
 
-...
+```{r}
+mets_ben |>
+  dplyr::summarize(
+    num_years = n(), 
+    total_W = sum(W), 
+    total_L = sum(L), 
+    total_WPct = mean(WPct), 
+    sum_resid = sum(W - W_hat)
+  )
+```
 
-### Exercise 9
 
-...
 
 ### Exercise 10
 
-...
+```{r}
+mets_ben <- mets_ben |> 
+  mutate(
+    gm = ifelse(
+      yearID == 2004, 
+      "Jim Duquette", 
+      ifelse(
+        yearID >= 2011, 
+        "Sandy Alderson", 
+        "Omar Minaya")
+    )
+  )
+print(mets_ben)
+```
+### Exercise 11
+
+```{r}
+mets_ben |> 
+  group_by(gm) |> 
+  summarize(
+    num_years = n(), 
+    total_W = sum(W), 
+    total_L = sum(L), 
+    total_WPct = mean(WPct), 
+    sum_resid = sum(W - W_hat)
+  ) |>
+arrange(desc(sum_resid))
+```
+
