@@ -1,12 +1,12 @@
 |                                |
 |--------------------------------|
-| itle: "BSMM-lab-1"             |
-| ubtitle: "BSMM 8740 Fall 2023" |
-| uthor: "Manushi Dalal"         |
-| ate: "September 18, 2023"      |
-| ormat: html                    |
-| ditor: visual                  |
-| elf-contained: true            |
+| title: "BSMM-lab-1"             |
+| subtitle: "BSMM 8740 Fall 2023" |
+| author: "Manushi Dalal"         |
+| date: "September 18, 2023"      |
+| format: html                    |
+| editor: visual                  |
+| self-contained: true            |
 
 ## Setup
 
